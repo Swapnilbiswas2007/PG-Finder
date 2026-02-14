@@ -1,8 +1,6 @@
 "use client"
 
-export const dynamic = "force-dynamic"
-
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import PropertyCard from "../../components/PropertyCard"
 
@@ -49,7 +47,7 @@ const properties = [
   }
 ]
 
-export default function CityContent() {
+function CityContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -127,5 +125,13 @@ export default function CityContent() {
         </div>
       </section>
     </main>
+  )
+}
+
+export default function BangalorePage() {
+  return (
+    <Suspense fallback={<main className="min-h-screen bg-[#f5f7fb]" />}>
+      <CityContent />
+    </Suspense>
   )
 }
