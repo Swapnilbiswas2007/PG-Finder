@@ -16,6 +16,21 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## API Key Setup (Chatbot)
+
+1. Create `.env.local` in the project root.
+2. Copy values from `.env.example`.
+3. Set your real key:
+
+```bash
+OPENAI_API_KEY=your_real_key_here
+OPENAI_MODEL=gpt-4.1-mini
+```
+
+4. Restart the dev server after updating env values.
+
+The chatbot calls `POST /api/chat` server-side, so the API key is not exposed in browser code.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
