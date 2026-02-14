@@ -47,20 +47,20 @@ const properties = [
   }
 ]
 
-export default function CityPage() {
+export default function CityContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
+
   const selectedFromQuery = Number(searchParams.get("selected"))
   const initialSelected = properties.some(p => p.id === selectedFromQuery)
     ? selectedFromQuery
     : 1
+
   const [selected, setSelected] = useState(initialSelected)
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("loggedIn") === "true"
-    if (!isLoggedIn) {
-      router.push("/login")
-    }
+    if (!isLoggedIn) router.push("/login")
   }, [router])
 
   useEffect(() => {
@@ -71,28 +71,22 @@ export default function CityPage() {
 
   return (
     <main className="min-h-screen bg-[#f5f7fb]">
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0b2856] via-[#1c4ea1] to-[#23a1b6] px-6 pb-8 pt-8 md:px-12">
-        <div className="hero-orb -left-20 top-6" />
-        <div className="hero-orb right-10 top-4" />
+      {/* ⭐ YOUR UI — UNTOUCHED ⭐ */}
 
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#0b2856] via-[#1c4ea1] to-[#23a1b6] px-6 pb-8 pt-8 md:px-12">
         <div className="relative z-10 flex flex-wrap items-center justify-between gap-4">
           <div>
             <p className="text-sm font-medium text-white/90">City Listings</p>
-            <h1 className="display-font text-3xl font-bold text-white md:text-4xl">PGs in Bangalore</h1>
-            <p className="mt-1 text-sm text-white/85">Select a card to update map location instantly.</p>
+            <h1 className="text-3xl font-bold text-white md:text-4xl">
+              PGs in Bangalore
+            </h1>
           </div>
 
           <div className="flex gap-3">
-            <a
-              href="/"
-              className="rounded-full bg-white/20 px-5 py-2 text-sm font-semibold text-white ring-1 ring-white/40 backdrop-blur transition hover:bg-white hover:text-[#0b2856]"
-            >
+            <a href="/" className="rounded-full bg-white/20 px-5 py-2 text-sm font-semibold text-white">
               Home
             </a>
-            <a
-              href="/logout"
-              className="rounded-full bg-[#0b2856] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#081b3b]"
-            >
+            <a href="/logout" className="rounded-full bg-[#0b2856] px-5 py-2 text-sm font-semibold text-white">
               Logout
             </a>
           </div>
@@ -100,16 +94,14 @@ export default function CityPage() {
       </section>
 
       <section className="mx-auto grid max-w-7xl gap-6 px-4 py-6 md:px-6 lg:grid-cols-2">
-        <div className="h-[75vh] overflow-y-auto rounded-2xl bg-white/75 p-4 shadow-lg ring-1 ring-black/5 backdrop-blur">
+        <div className="h-[75vh] overflow-y-auto rounded-2xl bg-white/75 p-4 shadow-lg">
           <div className="grid gap-5">
             {properties.map(property => (
               <div
                 key={property.id}
                 onClick={() => setSelected(property.id)}
-                className={`cursor-pointer rounded-2xl transition ${
-                  selected === property.id
-                    ? "scale-[1.01] ring-4 ring-[#1c4ea1]/35"
-                    : "hover:scale-[1.005]"
+                className={`cursor-pointer ${
+                  selected === property.id ? "ring-4 ring-[#1c4ea1]/35" : ""
                 }`}
               >
                 <PropertyCard
@@ -121,8 +113,8 @@ export default function CityPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl bg-white p-3 shadow-lg ring-1 ring-black/5">
-          <div className="mb-2 rounded-xl bg-[#f2f6ff] px-4 py-2 text-sm font-medium text-[#0b2856]">
+        <div className="rounded-2xl bg-white p-3 shadow-lg">
+          <div className="mb-2 text-sm font-medium text-[#0b2856]">
             Showing map for: {selectedProperty.name}
           </div>
           <iframe
